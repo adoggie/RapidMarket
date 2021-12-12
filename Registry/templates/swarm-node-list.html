@@ -1,0 +1,72 @@
+{% extends "base-page.html" %}
+
+{% block content %}
+    <style>
+
+    table td {
+        padding: 5px;
+        margin-left: 15px;
+        white-space: nowrap;
+    }
+
+</style>
+<body style="margin-left: 10px">
+
+{% raw %}
+{% endraw %}
+<h2 style="margin-bottom: 40px">
+    EL-SWARM/POOL
+</h2>
+<h4>
+    {{ data.ip }}/{{ data.nodes | length }}
+</h4>
+<div id="app" style="font-size: 14px">
+    <table class="table-striped  table-bordered  table-hover">
+        <thead>
+        <td>INDEX</td>
+        <td>NODE-ID</td>
+        <td>ADDRESS</td>
+        <td>PID</td>
+        <td>SINCE</td>
+        <td>IP</td>
+        <td>PORT</td>
+        <td>RSS</td>
+        <td>STORE-SPACE</td>
+        <td>PEERS</td>
+        <td>CHEQUE</td>
+        </thead>
+
+        {% for node in data.nodes %}
+        <tr >
+            <td>
+                <a target="_blank" >{{ loop.index}} </a>
+            </td>
+            <td>
+                <a target="_blank"  >
+                {{ node.node_id }}
+                    </a>
+
+            </td>
+            <td><a target="_blank" href="https://blockscout.com/xdai/mainnet/address/{{ node.address }}" >
+                {{ node.address }}
+                    </a></td>
+            <td>
+                {{ node.pid}}
+            </td>
+            <td>
+                {{ node.since}}
+            </td>
+            <td>{{ node.ip }}</td>
+            <td>{{ node.port}}</td>
+            <td>{{ node.rss}}</td>
+            <td>{{ node.store }}</td>
+            <td>{{ node.peers }}</td>
+            <td>{{ node.cheque }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+</body>
+
+{% endblock %}

@@ -1,0 +1,9 @@
+
+启动消息交换服务
+
+python -m elabs.utils.mx-broker run_spbb tcp://*:15553 tcp://*:15554
+python -m elabs.utils.mx-broker run_spbb tcp://*:15557 tcp://*:15558
+python -m elabs.utils.mx-broker run_spbb tcp://*:15551 tcp://*:15552
+
+监听kline行情
+python -m elabs.utils.mx-client do_sub tcp://172.16.10.253:15554

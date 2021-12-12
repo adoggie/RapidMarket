@@ -1,0 +1,115 @@
+{% extends "base-page.html" %}
+
+{% block content %}
+
+    <style>
+
+    table td {
+        padding: 5px;
+        margin-left: 15px;
+        white-space: nowrap;
+    }
+
+</style>
+<body style="margin-left: 10px">
+
+{% raw %}
+{% endraw %}
+<h2 style="margin-bottom: 40px">
+    EL-PHALA/POOL
+</h2>
+<h4>Total Host:{{ host_num }}/{{ host_live }} </h4>
+<div >
+    <span style="height: 40px;font-size: 20px; color:green">
+{#        {{now}} #}
+
+    </span>
+    /
+    <span id="downcounter" style="height: 40px; font-size: 36px; color:red"></span>
+</div>
+<div id="app" style="font-size: 14px">
+    <table class="table-striped  table-bordered  table-hover">
+        <thead>
+        <td>ID</td>
+        <td>HOST</td>
+        <td>NODES</td>
+        <td>DATETIME</td>
+        <td>CORE</td>
+        <td>MEM</td>
+        <td>LOAD-AVG</td>
+        <td>SWAP</td>
+        <td>DATA-DIR</td>
+        <td>ROOT</td>
+		<td>pruntime</td>
+		<td>pherry</td>
+		<td>pnode</td>
+        </thead>
+
+        {% for host in data %}
+        <tr style="background-color: {{ host.node_status_color }}" >
+            <td>
+                <a target="_blank" ]>{{ loop.index}} </a>
+            </td>
+            <td>
+                <a target="_blank" href="/phala/node?ip={{ host.ip }}" >
+                {{ host.ip }}
+                    </a>
+            </td>
+            <td>
+                {{ host.node_num}}
+            </td>
+            <td>
+                {{ host.datetime}}
+            </td>
+            <td>
+                {{ host.cpu}}
+            </td>
+            <td>
+                <div>
+                {{ host.mem.total }}/
+                    <span style="background-color:  {{ host.mem_color }}">{{ host.mem.used }}</span>
+                    /{{ host.mem.free }}
+                    </div>
+                <div>
+                <img src="{{host.img_mem}}" height="70px" >
+                    </div>
+            </td>
+            <td>
+
+                <span style="background-color:  {{ host.load_avg1_color }}">{{ host.load_avg.avg1 }}</span>
+                /
+                <span style="background-color:  {{ host.load_avg2_color }}">{{ host.load_avg.avg2 }}</span>
+                /
+                <span style="background-color:  {{ host.load_avg3_color }}">{{ host.load_avg.avg3 }}</span>
+                    <div>
+                        <img src="{{host.img_uptime}}" height="70px" >
+
+                    </div>
+            </td>
+            <td>{{ host.swap.total }}/{{ host.swap.used }}/{{ host.swap.free }}</td>
+            <td>{{ host.store_data }}</td>
+            <td> size:{{ host.root.size }},used:{{host.root.pc}}</td>
+			<td>{{host.pruntime}}</td>
+			<td>{{host.pherry}}</td>
+			<td>{{host.pnode}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<script>
+    var counter = 30;//{{interval}};
+    var timer = window.setInterval(function (){
+        $('#downcounter').html(counter);
+        counter--;
+        if(counter == 0){
+            //location.reload();
+			//alert(window.location.href);
+			window.location.reload();
+        }
+    },1000);
+</script>
+
+</body>
+
+{% endblock %}

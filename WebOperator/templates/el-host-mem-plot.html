@@ -1,0 +1,73 @@
+{% extends "base-page.html" %}
+
+{% block content %}
+
+<style>
+    body {
+        padding-left: 10px;
+        padding-top: 10px;
+        margin-left: 10px;
+    }
+
+    .nav-btn {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .active-nav-btn {
+        text-decoration: underline;
+    }
+
+    table td {
+        padding: 5px;
+        margin-left: 15px;
+    }
+
+    .dash_point_name {
+        font-size: 24px;
+        font-family: Consolas;
+        color: #1a1a1a;
+        font-style: normal;
+    }
+
+</style>
+
+<style>
+
+</style>
+
+<body style="margin-left: 10px">
+<div>
+    <h3>Host Mem Used</h3>
+</div>
+<div style="margin-top: 50px">
+    <p>
+        <b>
+        {{host.ip}} / {{host.port}}
+        </b>
+    </p>
+</div>
+
+<div >
+    <p>
+        <img src="{{ image }}">
+    </p>
+
+</div>
+
+
+<script>
+    var counter ={{interval}};
+    var timer = window.setInterval(function (){
+        $('#downcounter').html(counter);
+        counter--;
+        if(counter == 0){
+            location.reload();
+        }
+    },1000);
+</script>
+
+</body>
+</html>
+
+{% endblock %}

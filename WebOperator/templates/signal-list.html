@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>信号-{{ ball_id }}</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
+    <script src="/static/js/lib/vue.js"></script>
+    <script src="/static/js/useful.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+    <script type="text/javascript" src="/static/js/lib/socketio/socket.io.min.js" ></script>
+{#    <script src="https://cdn.bootcss.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>#}
+</head>
+<style>
+    body {
+        padding-left: 30px;
+        padding-top: 30px;
+    }
+    green {
+        color: green;
+        background-color: #0a8cff;
+    }
+    red {
+        color: red;
+
+    }
+
+</style>
+<body  >
+
+<script>
+    var basket_id = '{{ basket_id }}';
+    var ball_id = '{{ ball_id }}'
+    var strategy_id = '{{ strategy_id }}'
+</script>
+
+<div>
+    <h2>交易信号</h2>
+    <h5>股票：{{ ball_id }} </h5>
+</div>
+{% raw %}
+<div id="app">
+  <div>
+  </div>
+  <div>
+    <label>行情</label><input type="checkbox" v-model="show_quote">
+  </div>
+  <table class="table-striped  table-bordered  table-hover">
+    <thead>
+
+        <td>代码</td>
+        <td>时间</td>
+        <td>策略</td>
+
+
+        <td>内容</td>
+
+        <td>参数</td>
+        <td v-if="show_quote">行情</td>
+
+
+
+
+
+
+    </thead>
+
+    <tr v-for="sig in signals">
+
+        <td> {{ sig.ball_id }} </td>
+        <td> {{ sig.create_time }} </td>
+        <td> {{ sig.strategy_id }} </td>
+        <td> {{ sig.detail }} </td>
+        <td> {{ sig.param_snap }} </td>
+        <td v-if="show_quote"> {{ sig.quote_snap }} </td>
+
+
+    </tr>
+  </table>
+</div>
+
+{% endraw %}
+
+
+<script>
+
+var app = new Vue({
+  el: '#app',
+  {#delimiters: ['{[', ']}'],#}
+  data :{
+    signals: [ ],
+    boll_id : '{{ boll_id }}',
+    show_quote: false
+  },
+  methods:{
+    normalize:function () {
+
+    }
+  },
+  mounted () {
+    axios
+      .get('/api/signal/list', {
+        params: {ball_id: '{{ ball_id }}'}
+      })
+      .then(response => {
+        this.signals = response.data.result;
+        this.normalize();
+
+      }).catch(function (error) { // 请求失败处理
+        console.log(error);
+      });
+  }
+});
+
+</script>
+</body>
+</html>

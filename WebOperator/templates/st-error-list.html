@@ -1,0 +1,95 @@
+{% extends "base-page.html" %}
+
+{% block content %}
+
+<style>
+    body {
+        padding-left: 30px;
+        padding-top: 30px;
+    }
+
+    .nav-btn {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .active-nav-btn {
+        text-decoration: underline;
+    }
+
+    table td {
+        padding: 5px;
+        margin-left: 15px;
+    }
+
+</style>
+
+<style>
+
+</style>
+
+<body style="margin-left:10px">
+
+
+<div id="app">
+    <h3>ST Error </h3>
+    <table class="table-striped  table-bordered  table-hover table">
+        <thead>
+        <td>Index</td>
+        <td>Time</td>
+        <td>Level</td>
+        <td>AcName</td>
+        <td>Name</td>
+        <td>Product</td>
+        <td>Period</td>
+        <td>IP</td>
+        <td>Detail</td>
+
+        </thead>
+        {% for error in errors %}
+        <tr >
+            <td>
+                {{ loop.index }}
+            </td>
+            <td>
+                {{error.datetime}}
+            </td>
+            <td>
+                {{ error.level }}
+            </td>
+            <td>
+                {{ error.acname}}
+            </td>
+            <td>
+                {{ error.name }}
+            </td>
+            <td>
+                {{ error.product }}
+            </td>
+            <td>
+                {{ error.period }}
+            </td>
+            <td>
+                {{ error.host_ip }}
+            </td>
+            <td>
+               <a href="/db/coll/clear?next={{next}}&db={{db}}&coll={{coll}}&id={{error._id}}"> Del </a>
+            </td>
+        </tr>
+        <tr>
+          <td>Detail</td>
+          <td colspan="8" style="">
+            <span>
+              {{ error.detail | safe }}
+            </span>
+          </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+
+</body>
+</html>
+
+{% endblock %}

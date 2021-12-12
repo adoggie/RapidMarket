@@ -1,0 +1,22 @@
+{
+  "service_id": "trade01",
+  "service_type": "trade",
+
+  "system_broker_addr": "tcp://127.0.0.1:9987",
+  "position_broker_addr": "tcp://127.0.0.1:9988",
+  "market_public_broker_addr": "tcp://127.0.0.1:9989",
+  "market_local_broker_addr": "tcp://127.0.0.1:9990",
+
+  "registry_client.enable": 1,
+
+  "exchange": "ftx",
+  "account": "",
+  "app_id": "",
+  "secret_key": "",
+  "tt_symbols": {
+      "swap": ["btc/usdt","ltc/usdt"],
+      "spot": ["eth/usdt"]
+  },
+  "class": "elabs.trade.abc.MyTradeImpl"
+
+}

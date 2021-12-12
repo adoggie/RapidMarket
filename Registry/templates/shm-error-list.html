@@ -1,0 +1,73 @@
+{% extends "base-page.html" %}
+
+{% block content %}
+
+<style>
+    body {
+        padding-left: 30px;
+        padding-top: 30px;
+    }
+
+    .nav-btn {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .active-nav-btn {
+        text-decoration: underline;
+    }
+
+    table td {
+        padding: 5px;
+        margin-left: 15px;
+    }
+
+</style>
+
+<style>
+
+</style>
+
+<body>
+
+
+<div id="app">
+    <h3>BitPot Check SharedMemory Error </h3>
+    <table class="table-striped  table-bordered  table-hover" >
+        <thead>
+        <td>Index</td>
+        <td>Time</td>
+        <td>IP</td>
+        <td>Detail</td>
+        <td>..</td>
+
+        </thead>
+        {% for error in errors %}
+        <tr >
+            <td>
+                {{ loop.index0 }}
+            </td>
+            <td>
+                {{error.datetime}}
+            </td>
+            <td>
+                {{ error._source.ip }}
+            </td>
+            <td>
+                <code>
+                {{ error.detail}}
+                    </code>
+            </td>
+            <td>
+                <a href="/db/coll/clear?next={{next}}&db={{db}}&coll={{coll}}&id={{error._id}}"> Del </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+
+</body>
+</html>
+
+{% endblock %}

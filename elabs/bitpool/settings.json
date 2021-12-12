@@ -1,0 +1,36 @@
+{
+  "logger.level":"DEBUG",
+  "logger.path": "./",
+  "logger.filename": "bitpool.log",
+  "logger.stdout": 1,
+
+  "service_id": "bitpoolnode-1",
+  "service_type": "bitpoolnode",
+  "secret_key":"1234567890abcdef1234567890abcdef",
+
+  "system_broker_addr": "tcp://172.16.10.253:15551",
+  "market_broker_addr": "tcp://172.16.10.253:15554",
+
+  "registry_client.enable": 0,
+  "keep_alive_interval" : 5,
+  "kseeker.base_url": "http://1172.16.10.253:17028/api/kseeker/kline",
+  "exchange": {
+    "ftx":  { "id": 3,
+              "tt": {
+                "swap":{ "id":1, "symbol":"ftx_swap_symbols.txt","period":[1,30],"time_offset": 0 },
+              }
+    }
+  },
+  "_exhange": "time_offset 1m/kline的时间偏移，Unit: minute",
+  "message_topic": [
+    "1.0.kl,ftx,swap"
+  ],
+  "SHM_DATA_ID_BASE": 0,
+  "SHM_DATA_START": "2021-12-1",
+  "SHM_DATA_END" : "2022-2-1",
+  "SHM_DATA_DAYS":  30
+
+
+
+
+}

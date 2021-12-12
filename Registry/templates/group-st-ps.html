@@ -1,0 +1,67 @@
+{% extends "base-page.html" %}
+
+{% block content %}
+
+<style>
+    body {
+        padding-left: 30px;
+        padding-top: 30px;
+    }
+
+    .nav-btn {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .active-nav-btn {
+        text-decoration: underline;
+    }
+
+    table td {
+        padding: 5px;
+        margin-left: 15px;
+    }
+
+</style>
+
+<style>
+
+</style>
+
+<body>
+
+
+
+<div id="app" style="width: 100%">
+    <h3>Group: {{group_id}}</h3>
+    <table class="table-striped  table-bordered  table-hover">
+        <thead>
+        <td>Product</td>
+        <td>PS</td>
+
+        </thead>
+        {% for ps in data %}
+            {% if loop.index0%10==0 %}
+                <tr >
+            {% endif %}
+
+            <td>
+               <label style="color: blue"> {{ ps[0] }}
+                   </label>
+            </td>
+            <td>
+                {{ ps[1] }}
+            </td>
+            {% if loop.index0%10==9 %}
+                </tr >
+            {% endif %}
+
+        {% endfor %}
+    </table>
+</div>
+
+
+</body>
+</html>
+
+{% endblock %}

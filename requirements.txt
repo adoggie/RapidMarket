@@ -1,0 +1,15 @@
+fire
+pymysql==0.10.1
+python-dateutil
+PyYAML
+pyzmq
+pymongo
+gunicorn
+flask
+flask-login
+flask-compress
+simplejson
+gunicorn
+pycrypto
+#xpinyin
+tzlocal

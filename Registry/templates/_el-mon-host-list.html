@@ -1,0 +1,203 @@
+{% extends "base-page.html" %}
+
+{% block content %}
+
+<style>
+    body {
+        padding-left: 10px;
+        padding-top: 10px;
+        margin-left: 10px;
+    }
+
+    .nav-btn {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .active-nav-btn {
+        text-decoration: underline;
+    }
+
+    table td {
+        padding: 5px;
+        margin-left: 15px;
+    }
+
+    .dash_point_name {
+        font-size: 24px;
+        font-family: Consolas;
+        color: #1a1a1a;
+        font-style: normal;
+    }
+
+</style>
+
+<style>
+
+</style>
+
+<body style="margin-left: 10px">
+<div>
+    <h3>Host Monitor</h3>
+</div>
+<div style="margin-top: 50px">
+    <code>
+        try filter with text : '/host-mon?ip=10.xx&port=3101,3002&name=dbserver'
+    </code>
+</div>
+
+<div >
+    <span style="height: 40px;font-size: 20px; color:green">{{now}} </span>
+    /
+    <span id="downcounter" style="height: 40px; font-size: 36px; color:red"></span>
+</div>
+<div id="app"  >
+
+    <table  class="table-striped  table-bordered  table-hover table">
+        <thead>
+        <td>Index</td>
+        <td>IP</td>
+        <td>PORT</td>
+        <td>NAME</td>
+        <td>TIME</td>
+        <td>TWs</td>
+        <td>IPS</td>
+        <td>CPU</td>
+        <td>UPTIME</td>
+        <td>MEM &SWAP</td>
+<!--        <td>SWAP</td>-->
+        <td>DISK USAGE</td>
+        </thead>
+        {% for host in data %}
+        <tr>
+            <td>
+                {{ loop.index }}
+            </td>
+            <td>
+                {{host.ip}}
+            </td>
+
+            <td>
+                <a href="ssh -p  {{ host.port }} elfer@{{host.ip}}">
+                {{ host.port }}
+                </a>
+            </td>
+            <td>
+                {{host.name}}
+            </td>
+            <td>
+                {{ host.update_time }}
+            </td>
+            <td>
+                {{ host.time_warp }}
+            </td>
+            <td>
+                {{ host.ips }}
+            </td>
+            <td>
+                {{ host.cpu }}
+            </td>
+            <td style="white-space: nowrap">
+                <a target="_blank" href="/host-uptime-plot?id={{host.id}}&days=1">
+                <span style="background-color: {{ host.uptime.avg1_level }} ">
+                    {{ host.uptime.avg1 }}/
+                </span>
+
+                <span style="background-color: {{ host.uptime.avg5_level }} ">
+                    {{ host.uptime.avg5 }}/
+                </span>
+                <span style="background-color: {{ host.uptime.avg15_level }} ">
+                    {{ host.uptime.avg15 }}
+                </span>
+                    </a>
+            </td>
+<!--            mem-->
+
+<!--            <td>-->
+<!--                {{host.mem.total}}-->
+<!--            </td>-->
+<!--            <td>-->
+<!--                {{host.mem.avail}}-->
+<!--            </td>-->
+<!--            <td>-->
+<!--                {{host.mem.used}}-->
+<!--            </td>-->
+<!--            <td>-->
+<!--                <span style="background-color: {{ host.mem.level }} ">-->
+<!--                {{host.mem.use_percent}}-->
+<!--                </span>-->
+<!--            </td>-->
+
+            <td style="white-space: nowrap">
+                <div style="white-space: nowrap">
+                    <a target="_blank" href="/host-mem-plot?id={{host.id}}&days=1">
+                        <span style="background-color: {{ host.mem.level }} ">
+                            T:<span style="color:red">{{host.mem.total}}</span>,
+                        F:{{host.mem.avail}},
+                        U:{{host.mem.used}},
+                        <span style="color: blue">
+                            {{host.mem.use_percent}}
+                        </span>
+                        </span>
+                    </a>
+                </div>
+
+                <div style="white-space: nowrap">
+                    <span style="background-color: {{ host.swap.level }} ">
+                    T:{{host.swap.total}},
+                    F:{{host.swap.avail}},
+                    U:{{host.swap.used}},
+                    <span style="color: blue">
+                        {{host.swap.use_percent}}
+                    </span>
+                </span>
+
+                </div>
+            </td>
+<!--            swap-->
+<!--            <td style="white-space: nowrap">-->
+<!--                <span style="background-color: {{ host.swap.level }} ">-->
+<!--                    T:{{host.swap.total}},-->
+<!--                    F:{{host.swap.avail}},-->
+<!--                    U:{{host.swap.used}},-->
+<!--                    <span style="color: blue">-->
+<!--                        {{host.swap.use_percent}}-->
+<!--                    </span>-->
+<!--                </span>-->
+<!--            </td>-->
+<!--            df-->
+            <td>
+                {% for part in host.dfs %}
+                    <div style="white-space: nowrap;background-color: {{ part.level }} ">
+                        <span style="color:  #003bb3;font-weight: bold">{{part.name}}</span>
+                        ,
+                        <span style="color: #dd1144">{{part.size}}</span>
+                        ,
+                        <span>{{part.used}}</span>
+                        ,
+                        <span>{{part.avail}}</span>
+                        _
+                        <span style="color: #dd1144">{{part.use}}</span>
+                    </div>
+                {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<script>
+    var counter ={{interval}};
+    var timer = window.setInterval(function (){
+        $('#downcounter').html(counter);
+        counter--;
+        if(counter == 0){
+            location.reload();
+        }
+    },1000);
+</script>
+
+</body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{
+  "logger.level":"DEBUG",
+  "logger.path": "./",
+  "logger.filename": "manager.log",
+  "logger.stdout": 1,
+
+
+  "mongodb": {"host":"172.16.10.253", "port": 17002},
+  "message_topic": [
+    "2.0,manager:manager,svc_log",
+    "2.0,manager:manager,service_keep_alive",
+    "2.0,manager:manager,alarm",
+    "2.0,manager:manager,exg_symbol_up"
+  ],
+  "service_id": "manager",
+  "service_type": "manager",
+  "secret_key":"1234567890abcdef1234567890abcdef",
+
+  "system_broker_addr": "tcp://172.16.10.253:15552",
+
+  "registry_client.enable": 0,
+  "keep_alive_interval" : 5
+
+}

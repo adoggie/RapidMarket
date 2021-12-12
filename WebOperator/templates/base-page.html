@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+
+    <meta charset="UTF-8">
+
+    <title>{% block title %}首页{% endblock %}</title>
+
+   <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
+    <script src="/static/js/lib/vue.js"></script>
+    <script src="/static/js/lib/jquery-1.11.1.min.js"></script>
+    <script src="/static/js/useful.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+    <script type="text/javascript" src="/static/js/lib/socketio/socket.io.min.js" ></script>
+
+
+
+    {% endblock %}
+
+</head>
+<style>
+    body {
+        font-size: 14px;
+
+        padding-left: 10px;
+        padding-top: 30px;
+
+    }
+
+
+</style>
+<body class="container">
+{#    <div>#}
+    {% block content %}
+    {% endblock %}
+{#    </div>#}
+
+    <div id="footer">
+        {% include "base-footer.html" %}
+    </div>
+
+</body>
+</html>

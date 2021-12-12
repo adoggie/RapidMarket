@@ -1,0 +1,8 @@
+{
+  "logger.level":"DEBUG",
+  "logger.path": "./",
+  "logger.filename": "market.log",
+  "mongodb": { "host":"172.16.10.253","port": 17002 },
+  "host": "127.0.0.1",
+  "port": 17029
+}

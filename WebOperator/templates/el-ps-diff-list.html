@@ -1,0 +1,74 @@
+{% extends "base-page.html" %}
+
+{% block content %}
+
+<style>
+    body {
+        padding-left: 30px;
+        padding-top: 30px;
+    }
+
+    .nav-btn {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .active-nav-btn {
+        text-decoration: underline;
+    }
+
+    table td {
+        padding: 5px;
+        margin-left: 15px;
+    }
+
+</style>
+
+<style>
+
+</style>
+
+<body style="margin-left:10px">
+
+    <h3>{{ip}}</h3>
+<div id="app">
+
+    <table class="table-striped  table-bordered  table-hover table ">
+        <thead>
+        <td>Index</td>
+        <td>Host</td>
+        <td>Time</td>
+        <td>Text</td>
+
+        </thead>
+        {% for ps in data %}
+        <tr >
+            <td>
+                {{ loop.index }}
+            </td>
+            <td>
+                {{ ip}}
+            </td>
+            <td>
+                {{ ps.datetime }}
+            </td>
+            <td>
+                <code>
+                    {{ps.content}}
+                </code>
+            </td>
+            <td>
+
+            </td>
+
+
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+
+</body>
+</html>
+
+{% endblock %}

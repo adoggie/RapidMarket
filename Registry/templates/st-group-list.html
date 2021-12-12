@@ -1,0 +1,433 @@
+{% extends "base-page.html" %}
+
+{% block content %}
+
+<body>
+
+{% raw %}
+
+<div id="app">
+    <table class="table-striped  table-bordered  table-hover">
+        <thead>
+        <td>策略组</td>
+        <td>主机</td>
+        <td>策略数</td>
+        <td>告警数</td>
+
+        </thead>
+
+        <tr v-for="group in st_group_list">
+            <td>
+                <a target="_blank" v-bind:href="'/product/ps?id=' + group.id">{{ group.id }} </a>
+            </td>
+            <td>
+                {{ group.host }}
+            </td>
+            <td>
+                {{ group.st_num}}
+            </td>
+            <td>
+                {{ group.st_error_num}}
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+<script>
+
+
+  var kmt = new Vue({
+    el: '#all',
+  // {
+  //   #delimiters
+  // :
+  //   ['{[', ']}'], #
+  // }
+  data :{
+    show_basket: true,
+    show_ball:
+      false,
+    show_trade:
+      false,
+    show_snap:
+      false,
+
+    basket_selected:
+      'create',
+    ball_selected:
+      'resetparam',
+    trade_selected:
+      'open',
+    snap_selected:
+      'position',
+
+    show_basket_id:
+      false,
+    show_basket_id_2:
+      false,
+    show_attribute:
+      false,
+    show_basket_list:
+      false,
+    show_ball_id:
+      false,
+    show_strategy_id:
+      false,
+    show_text_value:
+      false,
+    show_oc_params:
+      false,
+
+
+    values:
+      {
+        basket_id: '',
+        basket_id_2:
+          '',
+        ball_id:
+          '',
+        attr_name:
+          '',
+        attr_value:
+          '',
+        basket_select_id:
+          '',
+        text_value:
+          '',
+        oc_params_price:
+          '0',
+        oc_params_num:
+          '100',
+        oc_params_pricetype:
+          'limit',
+        strategy_id:
+          '',
+        command_params:
+          '',
+        basket_ids:
+          [],
+        send_confirm:
+          '',
+        access_code:
+          ''
+
+      }
+  }
+  ,
+  methods:{
+    hide_all_widget:function () {
+      this.show_basket_id = false;
+      this.show_basket_id_2 = false;
+      this.show_attribute = false;
+      this.show_basket_list = false;
+      this.show_ball_id = false;
+      this.show_strategy_id = false;
+      this.show_text_value = false;
+      this.show_oc_params = false;
+    }
+  ,
+
+    select_snap_menu:function (ev) {
+      this.hide_all_widget();
+
+    }
+  ,
+
+    select_trade_menu:function (ev) {
+      this.hide_all_widget();
+
+      if (this.trade_selected == 'open' || this.trade_selected == 'close') {
+        this.show_ball_id = true;
+        this.show_oc_params = true;
+      }
+      if (this.trade_selected == 'bopen' || this.trade_selected == 'bclose') {
+        this.show_basket_list = true;
+        this.show_oc_params = true;
+      }
+
+      if (this.trade_selected == 'zpos') {
+        this.show_ball_id = true;
+        this.show_oc_params = true;
+      }
+      if (this.trade_selected == 'bzpos') {
+        this.show_basket_list = true;
+        this.show_oc_params = true;
+      }
+      if (this.trade_selected == 'cancel') { //撤掉指定订单
+        this.show_text_value = true;
+      }
+      if (this.trade_selected == 'cancelball') { //撤掉指定股票的所有委托
+        this.show_ball_id = true;
+      }
+
+      if (this.trade_selected == 'cancelbasket') { //撤掉指定篮子股票的所有委托
+        this.show_basket_list = true;
+      }
+    }
+  ,
+    select_ball_menu:function (ev) {
+      {
+        #alert(this.ball_selected);
+        #
+      }
+      this.hide_all_widget();
+      if (this.ball_selected == 'resetparam') {
+
+        this.show_basket_list = true;
+        this.show_ball_id = true;
+      }
+      if (this.ball_selected == 'setparam') {
+        this.show_basket_list = true;
+        this.show_ball_id = true;
+        this.show_attribute = true;
+      }
+
+    }
+  ,
+    select_basket_menue:function (ev) {
+      this.hide_all_widget();
+
+      if (this.basket_selected == 'create') {
+        this.show_basket_id = true;
+      }
+      if (this.basket_selected == 'delete') {
+        this.show_basket_list = true;
+      }
+      if (this.basket_selected == 'addball') {
+        this.show_basket_list = true;
+        this.show_ball_id = true;
+      }
+      if (this.basket_selected == 'deleteball') {
+        this.show_basket_list = true;
+        this.show_ball_id = true;
+      }
+
+      if (this.basket_selected == 'setsid') {
+        this.show_basket_list = true;
+        this.show_text_value = true;
+      }
+
+      if (this.basket_selected == 'copy') {
+        this.show_basket_id = true;
+        this.show_basket_id_2 = true;
+      }
+
+      if (this.basket_selected == 'set') {
+        this.show_basket_list = true;
+        this.show_attribute = true;
+      }
+
+      if (this.basket_selected == 'resetparam') {
+        this.show_basket_list = true;
+
+      }
+      if (this.basket_selected == 'setparam') {
+        this.show_basket_list = true;
+        this.show_attribute = true;
+
+      }
+
+    }
+  ,
+
+
+    show_menu:function (menu) {
+      this.show_basket = false;
+      this.show_ball = false;
+      this.show_trade = false;
+      this.show_snap = false;
+
+      this.hide_all_widget();
+
+      if (menu == 'show_basket') {
+        this.show_basket = !this.show_basket;
+
+      }
+      if (menu == 'show_ball') {
+        this.show_ball = !this.show_ball;
+        {
+          #this.select_ball_menu();
+          #
+        }
+      }
+      if (menu == 'show_trade') {
+        this.show_trade = !this.show_trade;
+        if (this.show_trade) {
+          this.select_trade_menu();
+        }
+      }
+      if (menu == 'show_snap') {
+        this.show_snap = !this.show_snap;
+
+      }
+
+      {
+        #this.select_basket_menue();
+        #
+      }
+
+    }
+  ,
+    onGetCommand:function () {
+      let cmd = 'python kmt-cmd.py ';
+      if (this.show_basket) {
+        cmd = cmd + ' basket ';
+        if (this.basket_selected == 'create') {
+          cmd = cmd + 'create ' + this.values.basket_id;
+        }
+        if (this.basket_selected == 'delete') {
+          cmd = cmd + this.basket_selected + ' ' + this.values.basket_select_id;
+        }
+        if (this.basket_selected == 'addball') {
+          cmd = cmd + this.basket_selected + ' ' + this.values.basket_select_id + ' ' + this.values.ball_id;
+        }
+        if (this.basket_selected == 'deleteball') {
+          cmd = cmd + this.basket_selected + ' ' + this.values.basket_select_id + ' ' + this.values.ball_id;
+        }
+
+        if (this.basket_selected == 'setsid') {
+          cmd = cmd + this.basket_selected + ' ' + this.values.basket_select_id + ' ' + this.values.text_value;
+        }
+
+        if (this.basket_selected == 'copy') {
+          cmd = cmd + this.basket_selected + ' ' + this.values.basket_id + ' ' + this.values.basket_id_2;
+        }
+
+        if (this.basket_selected == 'set') {
+          cmd = cmd + this.basket_selected + ' ' + this.values.basket_select_id + ' ' +
+            this.values.attr_name + ' ' + this.values.attr_value;
+        }
+        if (this.basket_selected == 'resetparam') {
+          cmd = cmd + this.basket_selected + ' ' + this.values.basket_select_id;
+        }
+        if (this.basket_selected == 'setparam') {
+          cmd = cmd + this.basket_selected + ' ' + this.values.basket_select_id + ' ' +
+            this.values.attr_name + ' ' + this.values.attr_value;
+        }
+      }
+
+      if (this.show_ball) {
+        cmd = cmd + ' ball ';
+        if (this.ball_selected == 'resetparam') {
+          cmd = cmd + this.ball_selected + ' ' + this.values.basket_select_id + ' ' +
+            this.values.ball_id;
+        }
+        if (this.ball_selected == 'setparam') {
+          cmd = cmd + this.ball_selected + ' ' + this.values.basket_select_id + ' ' +
+            this.values.ball_id + ' ' +
+            this.values.attr_name + ' ' + this.values.attr_value;
+        }
+
+      }
+
+      if (this.show_snap) {
+        cmd = cmd + ' snap ' + this.snap_selected;
+      }
+
+      if (this.show_trade) {
+        cmd = cmd + ' trade ';
+        let types = new Array('open', 'close', 'zpos');
+
+        let found = false;
+        for (let n = 0; n < types.length; n++) {
+          if (types[n] == this.trade_selected) {
+            found = true;
+          }
+        }
+        if (found) {
+          cmd = cmd + this.trade_selected + ' ' + this.values.ball_id + ' ' + this.values.oc_params_price + ' ' +
+            this.values.oc_params_num + ' ' + this.values.oc_params_pricetype;
+        }
+
+        found = false;
+        types = new Array('bopen', 'bclose', 'bzpos');
+        for (let n = 0; n < types.length; n++) {
+          if (types[n] == this.trade_selected) {
+            found = true;
+          }
+        }
+        if (found) {
+          cmd = cmd + this.trade_selected + ' ' + this.values.basket_select_id + ' ' + this.values.oc_params_price + ' ' +
+            this.values.oc_params_num + ' ' + this.values.oc_params_pricetype;
+        }
+
+        //-------------
+
+
+        if (this.trade_selected == 'cancel') {
+          cmd = cmd + this.trade_selected + ' ' + this.values.text_value;
+        }
+        if (this.trade_selected == 'cancelball') {
+          cmd = cmd + this.trade_selected + ' ' + this.values.text_value;
+        }
+
+        if (this.trade_selected == 'cancelbasket') {
+          cmd = cmd + this.trade_selected + ' ' + this.values.basket_select_id;
+        }
+
+      }
+
+
+      this.values.command_params = cmd;
+
+    }
+  ,
+
+    onKmtCmdSend:function () {
+      //alert(this.values.command_params);
+      this.onGetCommand();
+      if (this.values.access_code == '') {
+        alert("请输入安全码!");
+        return;
+      }
+      if (this.values.send_confirm != 'yes') {
+        alert("请选择确认发送!");
+        return;
+      }
+      axios
+        .post('/api/kmt-cmd/send', {
+          kmt_cmd: this.values.command_params,
+          access_code: this.values.access_code
+        })
+        .then(response => {
+          alert("send okay!");
+        }).catch(function (error) { // 请求失败处理
+        console.log(error);
+      });
+      this.values.send_confirm = '';
+    }
+  ,
+
+
+  }
+  ,
+  mounted()
+  {
+    this.select_basket_menue();
+
+    axios
+      .get('/api/basket/list')
+      .then(response => {
+        let basket_list = response.data.result;
+        this.values.basket_ids = [];
+        for (let n = 0; n < basket_list.length; n++) {
+          this.values.basket_ids.push(basket_list[n].id);
+        }
+
+      }).catch(function (error) { // 请求失败处理
+      console.log(error);
+    });
+  }
+  })
+  ;
+
+
+
+</script>
+
+
+</body>
+</html>
+
+{% endblock %}

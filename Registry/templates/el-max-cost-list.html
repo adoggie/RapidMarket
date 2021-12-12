@@ -1,0 +1,92 @@
+{% extends "base-page.html" %}
+
+{% block content %}
+
+<style>
+    body {
+        padding-left: 30px;
+        padding-top: 30px;
+    }
+
+    .nav-btn {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .active-nav-btn {
+        text-decoration: underline;
+    }
+
+    table td {
+        padding: 5px;
+        margin-left: 15px;
+    }
+
+</style>
+
+<style>
+
+</style>
+
+<body>
+
+
+
+<h3>
+    {{ ip }}
+</h3>
+
+<div id="app">
+
+    <table class="table-striped  table-bordered  table-hover">
+        <thead>
+        <td>Index</td>
+        <td>Host</td>
+        <td>AcName</td>
+        <td>Name</td>
+        <td>Time</td>
+        <td>Start</td>
+        <td>End</td>
+        <td>MaxCost</td>
+
+
+        </thead>
+        {% for st in data %}
+        <tr >
+            <td>
+                {{ loop.index }}
+            </td>
+            <td>
+                {{ip}}
+            </td>
+            <td>
+                {{st.acname}}
+            </td>
+            <td>
+                {{st.name}}
+            </td>
+            <td>
+                {{ st._update_time }}
+            </td>
+            <td>
+                {{ st.start }}
+            </td>
+            <td>
+                {{ st.end }}
+            </td>
+            <td>
+                <h6>{{ st.exc_cost }}
+                </h6>
+            </td>
+
+
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+
+</body>
+</html>
+
+{% endblock %}

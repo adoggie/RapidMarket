@@ -1,0 +1,35 @@
+{
+  "logger.level":"DEBUG",
+  "logger.path": "./",
+  "logger.filename": "market.log",
+  "logger.stdout": 1,
+
+  "service_id": "market01",
+  "service_type": "market",
+  "secret_key": "1234567890abcdef1234567890abcdef",
+
+  "_system_broker_addr": "tcp://127.0.0.1:15555",
+  "system_broker_addr": "tcp://172.16.10.253:15551",
+  "_position_broker_addr": "tcp://127.0.0.1:15555",
+  "market_public_broker_addr": "tcp://172.16.10.253:15553",
+  "market_local_broker_addr": "tcp://127.0.0.1:15559",
+  "registry_url": "http://172.16.10.253:17027",
+
+  "registry_client.enable": 0,
+  "exchange": "ftx",
+  "account": "",
+
+  "class": "elabs.market.abc.MyMarketImpl",
+  "develop_mode": 1,
+  "production_proxy": "",
+  "develop_proxy": "socks5://192.168.30.3:15011",
+
+  "kline_cahce_enable": 1,
+  "kline_cache_days" : 2,
+  "kline_cache_dir": "./kline",
+  "kline_max_size":200,
+  "kline_cache_check_timeout": 5
+
+
+
+}

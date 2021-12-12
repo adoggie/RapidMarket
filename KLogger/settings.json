@@ -1,0 +1,24 @@
+{
+  "logger.level":"DEBUG",
+  "logger.path": "./",
+  "logger.filename": "klogger.log",
+  "logger.stdout": 1,
+
+  "data_store_path": "./cc_data",
+  "_data_dump_elapsed": "刷新nosql到fs的时间间隔",
+  "data_dump_elapsed": 3600,
+  "_mongodb": {"host":"172.16.10.253", "port": 17002},
+  "mongodb": {"host":"127.0.0.1", "port": 27017},
+
+  "service_id": "klogger01",
+  "service_type": "klogger",
+  "secret_key":"1234567890abcdef1234567890abcdef",
+
+  "system_broker_addr": "tcp://172.16.10.253:15551",
+  "market_topic": "1.0",
+  "market_broker_addr": "tcp://172.16.10.253:15554",
+
+  "registry_client.enable": 0,
+  "keep_alive_interval" : 5
+
+}

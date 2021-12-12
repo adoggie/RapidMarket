@@ -1,0 +1,90 @@
+{% extends "base-page.html" %}
+
+{% block content %}
+
+<style>
+    body {
+        padding-left: 10px;
+        padding-top: 10px;
+        margin-left: 10px;
+    }
+
+    .nav-btn {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .active-nav-btn {
+        text-decoration: underline;
+    }
+
+    table td {
+        padding: 5px;
+        margin-left: 15px;
+    }
+
+    .dash_point_name {
+        font-size: 24px;
+        font-family: Consolas;
+        color: #1a1a1a;
+        font-style: normal;
+    }
+
+</style>
+
+
+<body style="margin-left: 30px;margin-right: 30px">
+
+<div style="height: 100px">
+
+</div>
+
+<div style="float: left">
+    <form action="/noa/task" method="post">
+    
+    Corp:
+    <input name="corp" value="{{ corp }}">
+    Auditor:
+    <input name="auditor" value="{{ auditor }}">
+	AuditType(9001/27001):
+    <input name="audit_type" value="{{ audit_type }}">
+	access-code:
+    <input type="password" name="access_code" value="{{ access_code }}">
+	
+    <button name="submit" >Query</button>
+    <select name="limit">
+        <option value="100" {% if limit == 100 %} selected {% endif %}>100</option>
+        <option value="200"  {% if limit == 200 %} selected {% endif %} >200</option>
+        <option value="500"  {% if limit == 500 %} selected {% endif %} >500</option>
+        <option value="2000"  {% if limit == 2000 %} selected {% endif %} >2000</option>
+    </select>
+
+    </form>
+</div>
+
+<div >
+    
+        <table  class="table table-striped table-hover" style="word-break:break-all; word-wrap:break-all;">
+            {% for r in data %}
+            <tr>
+                <td style="width: 80px">{{ loop.index }}</td>
+                <td style="width: 200px">{{ r.org_name }}</td>
+                <td style="width: 450px">{{ r.audit_type }}</td>
+                <td style="width: 250px">{{ r.auditors }}</td>
+                <td style="width: 250px">{{ r.org_reg_addr }}</td>
+                <td style="width: 200px">{{ r.date }}</td>
+                <td style="width: 250px">{{ r.org_prd_addr }}</td>
+                <td style="width: 150px">{{ r.audit_date }}</td>
+                <td style="width: 300px">{{ r.scope }}</td>
+                <td style="width: 300px">{{ r.org_prd_addr }}</td>
+                <td style="width: 300px">{{ r.org_reg_addr }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    
+
+</div>
+</body>
+</html>
+
+{% endblock %}

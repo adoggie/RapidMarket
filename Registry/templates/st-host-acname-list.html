@@ -1,0 +1,96 @@
+{% extends "base-page.html" %}
+
+{% block content %}
+
+<style>
+    body {
+        padding-left: 30px;
+        padding-top: 30px;
+    }
+
+    .nav-btn {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .active-nav-btn {
+        text-decoration: underline;
+    }
+
+    table td {
+        padding: 5px;
+        margin-left: 15px;
+    }
+
+</style>
+
+<style>
+
+</style>
+
+<body>
+
+
+
+
+
+
+<div id="app">
+    <h3>Host: {{host.ip}}</h3>
+    <p> {{host.st_count}} / {{host.st_running_count}}</p>
+    <table class="table-striped  table-bordered  table-hover">
+        <thead>
+        <td>Index</td>
+        <td>Host</td>
+        <td>Group</td>
+        <td>Group</td>
+        <td>Strategy</td>
+        <td>Running</td>
+        <td>Stopped</td>
+        <td>Error</td>
+        <td>Ps</td>
+
+        </thead>
+        {% for group in host.groups %}
+        <tr >
+            <td>
+                {{ loop.index0 }}
+            </td>
+            <td>
+                {{host.ip}}
+            </td>
+            <td>
+                <a target="_blank" >{{ group.id }} </a>
+            </td>
+            <td>
+                <a target="_blank" >{{ group.ID }} </a>
+            </td>
+            <td>
+                {{ group.st_num }}
+            </td>
+            <td>
+                {{ group.st_running_num}}
+            </td>
+            <td>
+                {{ group.st_num - group.st_running_num}}
+            </td>
+            <td>
+                <h6>{{ group.st_error_num }}
+                </h6>
+            </td>
+            <td>
+                <a target="_blank" href="/group/ps?group_id={{group.id}}" > See Ps </a>
+            </td>
+            <td>
+
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+
+</body>
+</html>
+
+{% endblock %}

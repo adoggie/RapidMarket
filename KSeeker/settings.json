@@ -1,0 +1,14 @@
+{
+  "logger.level":"DEBUG",
+  "logger.path": "./",
+  "logger.filename": "market.log",
+  "host": "127.0.0.1",
+  "port": 17028,
+  "_mongodb": {"host":"172.16.10.253", "port": 17002},
+  "mongodb": {"host":"127.0.0.1", "port": 27017},
+  "service_id": "kseeker01",
+  "service_type": "kseeker",
+  "registry_client.enable": 0
+
+
+}

@@ -1,0 +1,6 @@
+
+pymssql==2.1.5   # for mac
+fire
+requests
+python-dateutil
+
